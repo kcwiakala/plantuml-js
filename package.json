@@ -1,6 +1,6 @@
 {
-  "name": "izi-plantuml",
-  "version": "1.0.0",
+  "name": "plantuml-js",
+  "version": "0.0.1",
   "description": "Module for handling communication with plantuml servlet",
   "main": "index.js",
   "scripts": {
