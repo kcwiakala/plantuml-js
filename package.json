@@ -1,6 +1,6 @@
 {
   "name": "plantuml-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Module for handling communication with plantuml servlet",
   "main": "index.js",
   "scripts": {
