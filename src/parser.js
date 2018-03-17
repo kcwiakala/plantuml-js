@@ -1,13 +1,23 @@
 'use strict';
 
+const reSyntaxError = /\s*Syntax [Ee]{1}rror(?:\?|:)[\s\S]*$/;
+const reSkipping = /^\.{3}\s+\(skipping (\d+) line/;
+const reEol = /\r?\n/;
+
+function skipped(data) {
+	if(data.startsWith('@startuml')) {
+		return 0;
+	} else {
+		const match = reSkipping.exec(data);
+		return match ? (parseInt(match[1])-1) : 0;
+	}
+}
+
 exports.checkError = function(data) {
-	const rErr1 = /^\.{3}\s+\(skipping (\d+) line/;
-	const rErr2 = /\s*Syntax Error\?\s*$/;
-	const match = rErr1.exec(data);
-	if(match) {
-		return match[1];
-	} else if (rErr2.exec(data)) {
-		return 1;
+	if(reSyntaxError.exec(data)) {
+		const lines = data.trim().split(reEol);
+		const skip = skipped(lines[0]);
+		return lines.length + skip - 3;
 	}
 	return -1;
 }
